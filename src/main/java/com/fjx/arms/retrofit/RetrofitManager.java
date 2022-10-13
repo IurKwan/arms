@@ -12,6 +12,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import timber.log.Timber;
 
 /**
  * @author IurKwan
@@ -81,6 +82,7 @@ public class RetrofitManager {
 
         if (httpUrl != null) {
             HttpUrl newUrl = mUrlParser.parseUrl(httpUrl, request.url());
+            Timber.d("The new url is { " + newUrl.toString() + " }, old url is { " + request.url() + " }");
             return builder
                     .url(newUrl)
                     .build();
