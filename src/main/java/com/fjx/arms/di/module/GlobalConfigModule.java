@@ -2,6 +2,7 @@ package com.fjx.arms.di.module;
 
 import android.app.Application;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
@@ -38,8 +39,8 @@ import okhttp3.Interceptor;
  */
 @Module
 public class GlobalConfigModule {
-    private final BaseUrl mBaseUrl;
     private final HttpUrl mApiUrl;
+    private BaseUrl mBaseUrl;
     private BaseImageLoaderStrategy mLoaderStrategy;
     private final GlobalHttpHandler mHandler;
     private final List<Interceptor> mInterceptors;
@@ -86,7 +87,13 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     HttpUrl provideBaseUrl() {
-        return mApiUrl;
+        if (mBaseUrl != null) {
+            HttpUrl httpUrl = mBaseUrl.url();
+            if (httpUrl != null) {
+                return httpUrl;
+            }
+        }
+        return mApiUrl == null ? HttpUrl.parse("https://user.landscape-city.com/") : mApiUrl;
     }
 
     @Singleton
@@ -206,6 +213,9 @@ public class GlobalConfigModule {
         }
 
         public Builder baseurl(String baseUrl) {
+            if (TextUtils.isEmpty(baseUrl)) {
+                throw new NullPointerException("BaseUrl can not be empty");
+            }
             this.apiUrl = HttpUrl.parse(baseUrl);
             return this;
         }
