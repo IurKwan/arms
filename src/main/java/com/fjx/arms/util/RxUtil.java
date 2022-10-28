@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.ObservableTransformer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
- * Created by JessYan on 30/03/2018 17:16
  * @author Administrator
  */
 public class RxUtil {
