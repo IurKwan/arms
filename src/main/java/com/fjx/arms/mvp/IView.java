@@ -4,8 +4,6 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.alibaba.android.arouter.facade.Postcard;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ActivityUtils;
 
 /**
@@ -36,10 +34,6 @@ public interface IView {
 
     default void launchActivity(@NonNull Intent intent) {
         ActivityUtils.startActivity(intent);
-    }
-
-    default void navigation(Postcard postcard){
-        postcard.navigation();
     }
 
 }

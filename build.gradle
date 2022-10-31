@@ -58,7 +58,4 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:2.9.0"
     api "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
 
-    compileOnly "com.alibaba:arouter-api:1.5.2"
-
-
 }
