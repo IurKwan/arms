@@ -1,7 +1,7 @@
 package com.fjx.arms.util
 
 import android.annotation.SuppressLint
-import okhttp3.internal.threadFactory
+import okhttp3.internal.Util.threadFactory
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.SynchronousQueue
 import java.util.concurrent.ThreadPoolExecutor
