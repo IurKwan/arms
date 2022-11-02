@@ -1,7 +1,7 @@
 package com.fjx.arms.util
 
 import android.annotation.SuppressLint
-import okhttp3.internal.threadFactory
+import okhttp3.internal.Util
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -25,7 +25,7 @@ object ArmTimingExecutor {
     init {
         val cpuCount = Runtime.getRuntime().availableProcessors()
         val seq = AtomicLong()
-        val threadFactory = threadFactory("Arms Timing Executor" + seq.getAndIncrement(), false)
+        val threadFactory = Util.threadFactory("Arms Timing Executor" + seq.getAndIncrement(), false)
 
         timingService = object : ScheduledThreadPoolExecutor(
             cpuCount,

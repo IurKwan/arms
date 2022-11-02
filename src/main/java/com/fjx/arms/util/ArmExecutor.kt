@@ -1,7 +1,7 @@
 package com.fjx.arms.util
 
 import android.annotation.SuppressLint
-import okhttp3.internal.threadFactory
+import okhttp3.internal.Util
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.SynchronousQueue
 import java.util.concurrent.ThreadPoolExecutor
@@ -30,7 +30,7 @@ object ArmExecutor {
         val unit = TimeUnit.SECONDS
 
         val seq = AtomicLong()
-        val threadFactory = threadFactory("Arms Executor" + seq.getAndIncrement(),false)
+        val threadFactory = Util.threadFactory("Arms Executor" + seq.getAndIncrement(),false)
 
         armExecutor = object : ThreadPoolExecutor(
             corePoolSize,
