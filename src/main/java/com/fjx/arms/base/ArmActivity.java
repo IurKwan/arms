@@ -1,5 +1,7 @@
 package com.fjx.arms.base;
 
+import androidx.annotation.ContentView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,15 @@ public abstract class ArmActivity<P extends IPresenter> extends AppCompatActivit
 
     @Inject
     protected P mPresenter;
+
+    public ArmActivity() {
+        super();
+    }
+
+    @ContentView
+    public ArmActivity(@LayoutRes int contentLayoutId) {
+        super(contentLayoutId);
+    }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {

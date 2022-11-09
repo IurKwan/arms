@@ -13,7 +13,9 @@ public interface CacheType {
 
     int ACTIVITY_CACHE_TYPE_ID = 1;
 
-    int EXTRAS_TYPE_ID = 2;
+    int FRAGMENT_CACHE_TYPE_ID = 2;
+
+    int EXTRAS_TYPE_ID = 3;
 
     CacheType RETROFIT_SERVICE_CACHE = new CacheType() {
         private static final int MAX_SIZE = 150;
@@ -46,6 +48,26 @@ public interface CacheType {
             ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             int targetMemoryCacheSize = (int) (activityManager.getMemoryClass() * MAX_SIZE_MULTIPLIER * 1024);
             return Math.min(targetMemoryCacheSize, MAX_SIZE);
+        }
+    };
+
+    CacheType FRAGMENT_CACHE = new CacheType() {
+        private static final int MAX_SIZE = 80;
+        private static final float MAX_SIZE_MULTIPLIER = 0.0008f;
+
+        @Override
+        public int getCacheTypeId() {
+            return FRAGMENT_CACHE_TYPE_ID;
+        }
+
+        @Override
+        public int calculateCacheSize(Context context) {
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            int targetMemoryCacheSize = (int) (activityManager.getMemoryClass() * MAX_SIZE_MULTIPLIER * 1024);
+            if (targetMemoryCacheSize >= MAX_SIZE) {
+                return MAX_SIZE;
+            }
+            return targetMemoryCacheSize;
         }
     };
 
