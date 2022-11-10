@@ -17,4 +17,6 @@ public interface IActivity {
 
     void setupActivityComponent(@NonNull AppComponent appComponent);
 
+    boolean useFragment();
+
 }

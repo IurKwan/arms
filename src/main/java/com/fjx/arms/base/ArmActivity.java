@@ -64,6 +64,11 @@ public abstract class ArmActivity<P extends IPresenter> extends AppCompatActivit
     }
 
     @Override
+    public boolean useFragment() {
+        return true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null){

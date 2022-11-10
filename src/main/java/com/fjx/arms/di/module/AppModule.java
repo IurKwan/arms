@@ -5,8 +5,10 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.fjx.arms.integration.ActivityLifecycle;
+import com.fjx.arms.integration.FragmentLifecycle;
 import com.fjx.arms.integration.IRepositoryManager;
 import com.fjx.arms.integration.RepositoryManager;
 import com.fjx.arms.integration.cache.Cache;
@@ -14,6 +16,9 @@ import com.fjx.arms.integration.cache.CacheType;
 import com.fjx.arms.integration.lifecycle.ActivityLifecycleForRxLifecycle;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -44,6 +49,13 @@ public abstract class AppModule {
     static Cache<String, Object> provideExtras(Cache.Factory cacheFactory) {
         return cacheFactory.build(CacheType.EXTRAS);
     }
+
+    @Singleton
+    @Provides
+    static List<FragmentManager.FragmentLifecycleCallbacks> provideFragmentLifecycles() {
+        return new ArrayList<>();
+    }
+
     @Binds
     abstract IRepositoryManager bindRepositoryManager(RepositoryManager repositoryManager);
 
@@ -54,6 +66,9 @@ public abstract class AppModule {
     @Binds
     @Named("ActivityLifecycleForRxLifecycle")
     abstract Application.ActivityLifecycleCallbacks bindActivityLifecycleForRxLifecycle(ActivityLifecycleForRxLifecycle activityLifecycleForRxLifecycle);
+
+    @Binds
+    abstract FragmentManager.FragmentLifecycleCallbacks bindFragmentLifecycle(FragmentLifecycle fragmentLifecycle);
 
     public interface GsonConfiguration {
         void configGson(@NonNull Context context, @NonNull GsonBuilder builder);
