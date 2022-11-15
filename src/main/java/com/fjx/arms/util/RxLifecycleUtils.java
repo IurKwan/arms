@@ -3,6 +3,7 @@ package com.fjx.arms.util;
 import androidx.annotation.NonNull;
 
 import com.fjx.arms.integration.lifecycle.ActivityLifecycleAble;
+import com.fjx.arms.integration.lifecycle.FragmentLifecycleable;
 import com.fjx.arms.integration.lifecycle.LifecycleAble;
 import com.fjx.arms.mvp.IView;
 import com.trello.rxlifecycle4.LifecycleTransformer;
@@ -60,7 +61,9 @@ public class RxLifecycleUtils {
     public static <T> LifecycleTransformer<T> bindToLifecycle(@NonNull LifecycleAble lifecycleable) {
         if (lifecycleable instanceof ActivityLifecycleAble) {
             return RxLifecycleAndroid.bindActivity(((ActivityLifecycleAble) lifecycleable).provideLifecycleSubject());
-        }else {
+        } else if (lifecycleable instanceof FragmentLifecycleable) {
+            return RxLifecycleAndroid.bindFragment(((FragmentLifecycleable) lifecycleable).provideLifecycleSubject());
+        } else {
             throw new IllegalArgumentException("Lifecycleable not match");
         }
     }
