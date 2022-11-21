@@ -24,7 +24,8 @@ fun <T : Any> Observable<T>.applySchedulers(
                 tips
             )
         }
-        .ioToMain()
+        .subscribeOn(AndroidSchedulers.mainThread())
+        .observeOn(AndroidSchedulers.mainThread())
         .doFinally { view.hideLoading() }
         .bindToLifecycle(view)
 }
